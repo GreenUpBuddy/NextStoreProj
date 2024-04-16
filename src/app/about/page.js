@@ -6,11 +6,14 @@ import {ResponsiveGrid} from "@/components/grid/page";
 import styles from "../page.module.css";
 
 export default function About() {
-  //APP BAR causing remix reference error
   return (
-    <main>
-        <MyAppBar/>
+    <>
+    <MyAppBar/>
+    <main className={styles.main}>
+      <div className={styles.shop}>
         <ResponsiveGrid/>
+      </div>
     </main>
+    </>
   );
 }
