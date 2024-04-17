@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { DataCard } from '@/components/grid/card'
@@ -46,18 +47,18 @@ function FormRow() {
 
 export const ResponsiveGrid = () => {
   const [preset, setPreset] = React.useState('');
-  const [search, setSearch] = React.useState('');
+  const [search, setSearch] = React.useState(null);
+  const router = useRouter();
  
   const handleChange = (event) => {
     setPreset(event.target.value);
   };
-  const handleChangeSearch = (event) => {
-    console.log("lol")
-    setSearch(event.target.value);
+
+  const handleOptionSelect = (option) => {
+    setSearch(option);
+    router.push(`/about/${option.replace(" ", "!space!")}`);
   };
-  useEffect(() => {
-    console.log(search)
-  },[search])
+
   return (
     <>
       <div style={{position: 'absolute', left: '250px', top: '10%', bottom: '20%'}}>
@@ -85,11 +86,14 @@ export const ResponsiveGrid = () => {
           </FormControl>
           <Autocomplete
             id="search bar"
+            value={search}
             forcePopupIcon={false}
             style={{width: "140px",marginRight: "20px"}}
-            onChange={handleChangeSearch}
             disableClearable
             options={["Opt 1","Opt 2", "Opt 3", "aye"]}
+            onChange={(event, newValue) => {
+              handleOptionSelect(newValue);
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
