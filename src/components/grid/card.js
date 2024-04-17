@@ -4,12 +4,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import Link from 'next/link';
 
 export const DataCard = (props) => {
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+    <Card sx={{ maxWidth: props.width }}>
+      <CardActionArea component={Link} href={`/about/${props.name}`} >
         <CardMedia
           component="img"
           height="140"
