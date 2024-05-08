@@ -6,12 +6,12 @@ import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { DataCard } from '@/components/grid/card'
+import { Cart } from './cart';
 import { ButtonGroup, Toolbar, IconButton, MenuItem, Select, InputLabel, FormControl, Autocomplete, TextField, Chip } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import styles from "/src/app/page.module.css";
-import { Link } from 'react-router-dom';
 
 
 //Omce DB is connected and all values are properly being communicated to UI
@@ -61,7 +61,7 @@ export const ResponsiveGrid = () => {
 
   return (
     <>
-      <div style={{position: 'absolute', left: '250px', top: '10%', bottom: '20%'}}>
+      <div style={{position: 'absolute', left: '13%', top: '10%', paddingBottom: '25px'}}>
         <Toolbar>
           <ButtonGroup>
             <IconButton aria-label="backwards" color="primary" edge= "end">
@@ -119,6 +119,9 @@ export const ResponsiveGrid = () => {
             </Grid>
           </Grid>
         </Box>
+      </div>
+      <div style={{position: 'absolute', left: '78.25%', top: '20%', bottom: '20%'}}>
+        <Cart/>
       </div>
     </>
   );
