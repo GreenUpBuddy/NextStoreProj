@@ -6,6 +6,7 @@ import Image from 'next/image';
 export const Cart = () => {
     let total = 0;
     //HANDLE LIST HITTING END OF PAPER
+    //END OF PAPER IS 9 items
     return(
         <>
             <Paper elevation={8} square={false} style={{position: 'absolute',width: '20vw', height: '54.5vw'}}>
@@ -22,12 +23,12 @@ export const Cart = () => {
                     ))}
                     </List>
                 </Stack>
-                <span style={{textAlign:  "center"}}>
+                <Stack style={{textAlign:  "center", justifyContent: "center"}}>
                     <Typography>Total: {total}</Typography>
-                    <Button style={{justifyContent: "center"}} variant="contained" endIcon={<ShoppingCartIcon/>}>
+                    <Button variant="contained" endIcon={<ShoppingCartIcon/>}>
                         Submit
                     </Button>
-                </span>
+                </Stack>
             </Paper>
         </>
     );
