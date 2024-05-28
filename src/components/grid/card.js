@@ -6,11 +6,13 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Link from 'next/link';
 
+//props.name
 export const DataCard = (props) => {
-
+  let link = props.name.split(" ")
+  .join("");
   return (
     <Card sx={{ maxWidth: props.width }}>
-      <CardActionArea component={Link} href={`/about/${props.name}`} >
+      <CardActionArea component={Link} href={`/about/${link}`} >
         <CardMedia
           component="img"
           height="140"

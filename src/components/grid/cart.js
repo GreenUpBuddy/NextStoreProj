@@ -5,11 +5,10 @@ import Image from 'next/image';
 
 export const Cart = () => {
     let total = 0;
-    //HANDLE LIST HITTING END OF PAPER
     //END OF PAPER IS 9 items
     return(
         <>
-            <Paper elevation={8} square={false} style={{position: 'absolute',width: '20vw', height: '54.5vw'}}>
+            <Paper elevation={8} square={false} style={{position: 'absolute',width: '20vw', height: '55vw',overflow: "auto"}}>
                 <Stack>
                     <List>
                     {[{name: "Item 1", price: 5.99, quantitiy: 1}, {name: "Item 2", price: 5.99, quantitiy: 1}].map((item, index) => (

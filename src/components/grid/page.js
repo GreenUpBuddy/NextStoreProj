@@ -7,48 +7,84 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { DataCard } from '@/components/grid/card'
 import { Cart } from './cart';
-import { ButtonGroup, FormGroup, FormControlLabel, IconButton, MenuItem, Select, InputLabel, FormControl, Autocomplete, TextField, Chip, Checkbox , Stack } from '@mui/material';
+import { ButtonGroup, FormGroup, FormControlLabel, IconButton, MenuItem, Select, InputLabel, FormControl, Autocomplete, TextField, Chip, Checkbox , Stack, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import styles from "/src/app/page.module.css";
 import { CheckBox } from '@mui/icons-material';
 
+const items = [["ITEM 1","details 1","1 for 1.99","5 for 4.99","https://placehold.co/140"],
+               ["ITEM 2","details 2","1 for 1.99","5 for 4.99","https://placehold.co/140"],
+               ["ITEM 3","details 3","1 for 1.99","5 for 4.99","https://placehold.co/140"],
+               ["ITEM 4","details 4","1 for 1.99","5 for 4.99","https://placehold.co/140"],
+               ["ITEM 5","details 5","1 for 1.99","5 for 4.99","https://placehold.co/140"],
+               ["ITEM 6","details 6","1 for 1.99","5 for 4.99","https://placehold.co/140"],
+               ["ITEM 7","details 7","1 for 1.99","5 for 4.99","https://placehold.co/140"],
+               ["ITEM 8","details 8","1 for 1.99","5 for 4.99","https://placehold.co/140"],
+               ["ITEM 9","details 9","1 for 1.99","5 for 4.99","https://placehold.co/140"]];
 
-//Omce DB is connected and all values are properly being communicated to UI
+
+//Once DB is connected and all values are properly being communicated to UI
 //hit gpt api to generate product details when creating a new item (editable)
 
-const Item = () => {
+function Item (title,details,price1,price2,image) {
   return (
     <DataCard 
-    name= "TempItem" 
-    width={345}
-    details= "this is a temporary placeholder for details" 
-    price= {<><Chip label="1 for 1.99" size='small'/> <Chip label="5 for 4.99" color='primary' size='small'/></>}
-    image= "https://placehold.co/140"
+    name= {title}
+    details= {details}
+    width={500}
+    price= {<><Chip label={price1} size='small'/> <Chip label={price2} color='primary' size='small'/></>}
+    image= {image}
     />
   )
 }
 
-function FormRow() {
+function FormRow(list, index) {
+  let ob1;
+  let ob2;
+  let ob3;
+  if(index > list.length){return;}
+  if(list[0 + index] != undefined){
+    ob1 = list[0 + index];
+  }else{
+    ob1 = "ITEM OB","details OB","1 for 1.99","5 for 4.99","https://placehold.co/140";
+  }
+  if(list[1 + index] != undefined){
+    ob2 = list[1 + index];
+  }else{
+    ob2 = "ITEM OB","details OB","1 for 1.99","5 for 4.99","https://placehold.co/140";
+  }
+  if(list[2 + index] != undefined){
+    ob3 = list[2 + index];
+  }else{
+    ob3 = "ITEM OB","details OB","1 for 1.99","5 for 4.99","https://placehold.co/140";
+  }
   return (
     <>
-      <Grid item xs="auto">
-        <Item>Item</Item>
+      <Grid item xs={3}>
+        {Item(ob1[0],ob1[1],ob1[2],ob1[3],ob1[4])}
       </Grid>
-      <Grid item xs="auto">
-        <Item>Item</Item>
+      <Grid item xs={3}>
+        {Item(ob2[0],ob2[1],ob2[2],ob2[3],ob2[4])}
       </Grid>
-      <Grid item xs="auto">
-        <Item>Item</Item>
+      <Grid item xs={3}>
+        {Item(ob3[0],ob3[1],ob3[2],ob3[3],ob3[4])}
       </Grid>
     </>
   );
 }
 
+function makeRow(items,index){
+  if(index < items.length){
+    return FormRow(items,index);
+  }
+}
+
 export const ResponsiveGrid = () => {
   const [preset, setPreset] = React.useState('');
   const [search, setSearch] = React.useState(null);
+  let currIn = 0;
   const router = useRouter();
  
   const handleChange = (event) => {
@@ -64,14 +100,16 @@ export const ResponsiveGrid = () => {
     <>
       <div style={{position: 'absolute', left: '0%', top: '10%', paddingBottom: '25px'}}>
       <Stack>
-          <ButtonGroup style={{justifyContent: "center"}}>
-            <IconButton aria-label="backwards" color="primary" edge= "end">
-              <ArrowBackIcon/>
-            </IconButton>
-            <IconButton aria-label="forwards" color="primary" edge= "end">
-              <ArrowForwardIcon/>
-            </IconButton>
-          </ButtonGroup>
+          <span style={{paddingLeft: "4vw"}}>
+            <ButtonGroup style={{justifycontent: "center"}}>
+              <IconButton aria-label="backwards" color="primary" edge= "end">
+                <ArrowBackIcon/>
+              </IconButton>
+              <IconButton aria-label="forwards" color="primary" edge= "end">
+                <ArrowForwardIcon/>
+              </IconButton>
+            </ButtonGroup>
+          </span>
           <span style={{paddingLeft: "25px", paddingTop: "5px"}}>
             <Autocomplete
               id="search bar"
@@ -85,7 +123,7 @@ export const ResponsiveGrid = () => {
               }}
               renderInput={(params) => (
                 <TextField
-                  style={{justifyContent: "center"}}
+                  style={{justifycontent: "center"}}
                   {...params}
                   label="Search input"
                   InputProps={{
@@ -111,31 +149,31 @@ export const ResponsiveGrid = () => {
               </Select>
             </FormControl>
           </span>
-          <spaan>
-         <FormGroup>
-      <FormControlLabel control={<Checkbox defaultChecked />} label="Label" />
-      <FormControlLabel required control={<Checkbox />} label="Required" />
-      <FormControlLabel disabled control={<Checkbox />} label="Disabled" />
-    </FormGroup>
-          </spaan>
+          <span>
+          <FormGroup>
+            <FormControlLabel style={{paddingLeft: "25px"}} control={<Checkbox />} label=<Typography color={"black"}>Option 1</Typography>/>
+            <FormControlLabel style={{paddingLeft: "25px"}} control={<Checkbox />} label= <Typography color={"black"}>Option 2</Typography>/>
+            <FormControlLabel style={{paddingLeft: "25px"}} control={<Checkbox />} label= <Typography color={"black"}>Option 3</Typography> />
+          </FormGroup>
+          </span>
         </Stack>
       </div>
       <div style={{position: 'absolute', left: '13%', top: '10%', paddingBottom: '25px'}}>
-        <Box sx={{ flexGrow: 1 }} alignItems= "center">
-          <Grid container spacing={1}>
+          <Grid container spacing={0}>
             <Grid container item spacing={2}>
-              <FormRow />
+              {makeRow(items,0)}
             </Grid>
+            {currIn = currIn + 3}
             <Grid container item spacing={2}>
-              <FormRow />
+              {makeRow(items,currIn)}
             </Grid>
+            {currIn = currIn + 3}
             <Grid container item spacing={2}>
-              <FormRow />
+              {makeRow(items,currIn)}
             </Grid>
           </Grid>
-        </Box>
       </div>
-      <div style={{position: 'absolute', left: '78.25%', top: '12%', bottom: '20%'}}>
+      <div style={{position: 'absolute', left: '79%', top: '12%', bottom: '20%'}}>
         <Cart/>
       </div>
     </>
