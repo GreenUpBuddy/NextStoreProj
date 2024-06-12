@@ -22,7 +22,8 @@ const items = [["ITEM 1","details 1","1 for 1.99","5 for 4.99","https://placehol
                ["ITEM 6","details 6","1 for 1.99","5 for 4.99","https://placehold.co/140"],
                ["ITEM 7","details 7","1 for 1.99","5 for 4.99","https://placehold.co/140"],
                ["ITEM 8","details 8","1 for 1.99","5 for 4.99","https://placehold.co/140"],
-               ["ITEM 9","details 9","1 for 1.99","5 for 4.99","https://placehold.co/140"]];
+               ["ITEM 9","details 9","1 for 1.99","5 for 4.99","https://placehold.co/140"],
+               ["ITEM 10","details 10","1 for 1.99","5 for 4.99","https://placehold.co/140"]];
 
 
 //Once DB is connected and all values are properly being communicated to UI
@@ -81,12 +82,21 @@ function makeRow(items,index){
   }
 }
 
+//set indexPlace to += 9 when hitting right arrow
+//currIn <- indexPlace
+
+
+//potentially split actual grid from rest of page
+//pass list to grid and keep state for index with rest of page
+//this allows us to only send 9 items at a time to the grid
+//rerender is triggered by useEffect with a flag variable ie. ,[flag]
+
 export const ResponsiveGrid = () => {
   const [preset, setPreset] = React.useState('');
   const [search, setSearch] = React.useState(null);
-  let currIn = 0;
+  const [indexPlace,setIndexPlace] = React.useState(0);
   const router = useRouter();
- 
+  let currIn = indexPlace;
   const handleChange = (event) => {
     setPreset(event.target.value);
   };
@@ -95,17 +105,16 @@ export const ResponsiveGrid = () => {
     setSearch(option);
     router.push(`/about/${option.replace(" ", "!space!")}`);
   };
-
   return (
     <>
       <div style={{position: 'absolute', left: '0%', top: '10%', paddingBottom: '25px'}}>
       <Stack>
           <span style={{paddingLeft: "4vw"}}>
             <ButtonGroup style={{justifycontent: "center"}}>
-              <IconButton aria-label="backwards" color="primary" edge= "end">
+              <IconButton aria-label="backwards" color="primary" edge= "end" onClick={useEffect(() => {console.log("back")}, [])}>
                 <ArrowBackIcon/>
               </IconButton>
-              <IconButton aria-label="forwards" color="primary" edge= "end">
+              <IconButton aria-label="forwards" color="primary" edge= "end" onClick={useEffect(() => {console.log("forward");}, [])}>
                 <ArrowForwardIcon/>
               </IconButton>
             </ButtonGroup>
@@ -117,7 +126,7 @@ export const ResponsiveGrid = () => {
               forcePopupIcon={false}
               style={{width: "140px",marginRight: "20px"}}
               disableClearable
-              options={["Opt 1","Opt 2", "Opt 3", "aye"]}
+              options={items.map((x) => x[0])}
               onChange={(event, newValue) => {
                 handleOptionSelect(newValue);
               }}
@@ -151,7 +160,7 @@ export const ResponsiveGrid = () => {
           </span>
           <span>
           <FormGroup>
-            <FormControlLabel style={{paddingLeft: "25px"}} control={<Checkbox />} label=<Typography color={"black"}>Option 1</Typography>/>
+            <FormControlLabel style={{paddingLeft: "25px"}} control={<Checkbox />} label= <Typography color={"black"}>Option 1</Typography>/>
             <FormControlLabel style={{paddingLeft: "25px"}} control={<Checkbox />} label= <Typography color={"black"}>Option 2</Typography>/>
             <FormControlLabel style={{paddingLeft: "25px"}} control={<Checkbox />} label= <Typography color={"black"}>Option 3</Typography> />
           </FormGroup>
@@ -174,7 +183,7 @@ export const ResponsiveGrid = () => {
           </Grid>
       </div>
       <div style={{position: 'absolute', left: '79%', top: '12%', bottom: '20%'}}>
-        <Cart/>
+        <Cart list={[{name: "item1",quantity: 1, price: 4.99},{name: "item2",quantity: 2, price: 2.00}]}/>
       </div>
     </>
   );

@@ -3,20 +3,20 @@ import { List, ListItem, ListItemText, Paper, Stack, Typography, Button } from '
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Image from 'next/image';
 
-export const Cart = () => {
+export const Cart = (props) => {
     let total = 0;
     //END OF PAPER IS 9 items
     return(
         <>
-            <Paper elevation={8} square={false} style={{position: 'absolute',width: '20vw', height: '55vw',overflow: "auto"}}>
+            <Paper elevation={8} square={false} style={{position: 'absolute',width: '20vw', height: '56vw',overflow: "auto"}}>
                 <Stack>
                     <List>
-                    {[{name: "Item 1", price: 5.99, quantitiy: 1}, {name: "Item 2", price: 5.99, quantitiy: 1}].map((item, index) => (
+                    {props.list.map((item, index) => (
                     <ListItem key={item.name}>
                         <Image style={{paddingRight: "10px"}} unoptimized src="https://placehold.co/60x60" width={60} height={60} alt="placeholder"/>
                         <ListItemText
-                        primary={item.name + " @$" + item.price + " x " + item.quantitiy + " =  " + item.price * item.quantitiy +
-                        `${total += item.price * item.quantitiy}`.replace(`${total}`,"")}
+                        primary={item.name + " @$" + item.price + " x " + item.quantity + " =  " + item.price * item.quantity +
+                        `${total += item.price * item.quantity}`.replace(`${total}`,"")}
                          />
                     </ListItem>
                     ))}
